@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bat Adventure Night Calculator - kalkulator futuristik bertema kelelawar.">
+  <title>Bat Adventure — Night Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <div class="moon"></div>
+    <div class="stars"></div>
+    <div class="bat bat-a">🦇</div>
+    <div class="bat bat-b">🦇</div>
+    <div class="bat bat-c">🦇</div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">🦇</div>
+      <div class="school-logos" aria-label="Logo sekolah dan jurusan">
+        <img src="assets/logo-smkn-1-sanden.png" alt="Logo SMKN 1 Sanden" title="SMKN 1 Sanden">
+        <img src="assets/logo-rpl.png" alt="Logo RPL" title="RPL">
+      </div>
+      <div>
+        <h1>BAT ADVENTURE</h1>
+        <p>NIGHT CALCULATOR</p>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <label class="mode-label">
+        <span>Mode</span>
+        <select id="modeSelect" aria-label="Mode kalkulator">
+          <option value="basic">Basic</option>
+          <option value="scientific">Scientific</option>
+          <option value="programmer">Programmer</option>
+          <option value="converter">Converter</option>
+        </select>
+      </label>
+      <button class="icon-btn" id="themeToggle" aria-label="Ganti tema">🌙</button>
+      <button class="icon-btn" id="soundToggle" aria-label="Aktifkan suara">🔇</button>
+      <button class="icon-btn" id="settingsBtn" aria-label="Buka pengaturan">⚙️</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="adventure-panel glass">
+      <div class="bat-mascot" aria-hidden="true">
+        <div class="ear e1"></div><div class="ear e2"></div>
+        <div class="bat-head"><span></span><span></span></div>
+        <div class="wing wing-left"></div><div class="wing wing-right"></div>
+        <div class="body"></div>
+      </div>
+
+      <div class="speech" id="mascotMessage">Calculation ready! 🦇</div>
+
+      <div class="level-card">
+        <div class="card-title">
+          <span>🦇 BAT LEVEL</span>
+          <strong id="levelNumber">01</strong>
+        </div>
+        <div class="level-name" id="levelName">Night Rookie</div>
+        <div class="xp-track"><span id="xpBar"></span></div>
+        <div class="xp-text"><span id="xpText">0</span> / <span id="xpMax">100</span> XP</div>
+      </div>
+
+      <div class="stats">
+        <div><span>Calculations</span><strong id="calcCount">0</strong></div>
+        <div><span>Achievements</span><strong id="achievementCount">0</strong></div>
+        <div><span>Memory</span><strong id="memoryIndicator">—</strong></div>
+      </div>
+
+      <div class="achievement-preview">
+        <div class="section-heading">🏆 Achievements</div>
+        <div id="achievementList" class="achievement-list"></div>
+      </div>
+    </aside>
+
+    <section class="calculator glass" aria-label="Kalkulator">
+      <div class="display-wrap">
+        <div class="display-top">
+          <span id="expression" aria-live="polite"></span>
+          <button class="mini-btn" id="backspaceBtn" title="Backspace">⌫</button>
+        </div>
+        <div class="result" id="result" aria-live="polite">0</div>
+        <div class="display-status">
+          <span id="memoryStatus">MEMORY: —</span>
+          <span>⌨️ Keyboard Ready</span>
+        </div>
+      </div>
+
+      <div class="memory-row">
+        <button data-action="memory-clear">MC</button>
+        <button data-action="memory-recall">MR</button>
+        <button data-action="memory-add">M+</button>
+        <button data-action="memory-subtract">M-</button>
+        <button data-action="memory-store">MS</button>
+        <button id="historyBtn">📜 HISTORY</button>
+      </div>
+
+      <div class="scientific-panel" id="scientificPanel">
+        <button data-fn="sqrt">√</button><button data-fn="square">x²</button>
+        <button data-fn="power">xʸ</button><button data-fn="reciprocal">1/x</button>
+        <button data-fn="sin">sin</button><button data-fn="cos">cos</button>
+        <button data-fn="tan">tan</button><button data-fn="asin">asin</button>
+        <button data-fn="acos">acos</button><button data-fn="atan">atan</button>
+        <button data-fn="log">log</button>
+        <button data-fn="ln">ln</button><button data-fn="exp">eˣ</button>
+        <button data-fn="tenpower">10ˣ</button><button data-fn="factorial">n!</button>
+        <button data-fn="abs">|x|</button><button data-fn="mod">mod</button>
+        <button data-fn="random">RAND</button><button data-constant="pi">π</button>
+        <button data-constant="e">e</button><button data-constant="phi">φ</button>
+      </div>
+
+      <div class="programmer-panel" id="programmerPanel">
+        <div class="base-row">
+          <button data-base="2">BIN</button><button data-base="8">OCT</button>
+          <button data-base="10">DEC</button><button data-base="16">HEX</button>
+        </div>
+        <div class="bit-row">
+          <button data-bit="AND">AND</button><button data-bit="OR">OR</button>
+          <button data-bit="XOR">XOR</button><button data-bit="NOT">NOT</button>
+          <button data-bit="SHL">SHL</button><button data-bit="SHR">SHR</button>
+        </div>
+      </div>
+
+      <div class="converter-panel" id="converterPanel">
+        <div class="converter-controls">
+          <select id="converterCategory" aria-label="Kategori konversi">
+            <option value="length">Panjang</option>
+            <option value="weight">Berat</option>
+            <option value="temperature">Suhu</option>
+            <option value="area">Luas</option>
+            <option value="volume">Volume</option>
+            <option value="time">Waktu</option>
+            <option value="speed">Kecepatan</option>
+            <option value="data">Data Digital</option>
+            <option value="energy">Energi</option>
+          </select>
+          <input id="convertInput" type="number" value="1" aria-label="Nilai konversi">
+          <select id="convertFrom" aria-label="Satuan asal"></select>
+          <span>→</span>
+          <select id="convertTo" aria-label="Satuan tujuan"></select>
+          <button id="convertBtn">CONVERT</button>
+        </div>
+        <div class="conversion-result" id="conversionResult">1</div>
+      </div>
+
+      <div class="keypad">
+        <button class="danger" data-action="clear">AC</button>
+        <button data-action="sign">±</button>
+        <button data-action="percent">%</button>
+        <button class="operator" data-op="/">÷</button>
+
+        <button data-number="7">7</button><button data-number="8">8</button>
+        <button data-number="9">9</button><button class="operator" data-op="*">×</button>
+
+        <button data-number="4">4</button><button data-number="5">5</button>
+        <button data-number="6">6</button><button class="operator" data-op="-">−</button>
+
+        <button data-number="1">1</button><button data-number="2">2</button>
+        <button data-number="3">3</button><button class="operator" data-op="+">+</button>
+
+        <button class="zero" data-number="0">0</button>
+        <button data-number=".">.</button>
+        <button class="operator equal" data-action="equals">=</button>
+      </div>
+    </section>
+
+    <aside class="history-panel glass" id="historyPanel">
+      <div class="panel-heading">
+        <h2>🦇 Night History</h2>
+        <button class="mini-btn" id="closeHistory">×</button>
+      </div>
+      <div id="historyList" class="history-list">
+        <p class="empty">Belum ada perhitungan.</p>
+      </div>
+      <button class="clear-history" id="clearHistory">Hapus Semua History</button>
+    </aside>
+  </main>
+
+  <footer>
+    <span>🦇 Bat Adventure Calculator</span>
+    <span>LocalStorage • GitHub Pages Ready</span>
+  </footer>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <dialog id="settingsDialog">
+    <div class="dialog-inner">
+      <div class="panel-heading"><h2>⚙️ SETTINGS</h2><button class="mini-btn" id="closeSettings">×</button></div>
+      <label>Theme <select id="themeSetting"><option value="dark">Dark Night</option><option value="light">Moon Light</option></select></label>
+      <label>Sound <input type="checkbox" id="soundSetting"></label>
+      <label>Animation <input type="checkbox" id="animationSetting" checked></label>
+      <label>Vibration <input type="checkbox" id="vibrationSetting"></label>
+      <label>Decimal Places
+        <select id="decimalSetting"><option value="auto">Auto</option><option value="2">2</option><option value="4">4</option><option value="6">6</option><option value="8">8</option></select>
+      </label>
+      <button class="reset-btn" id="resetData">RESET DATA</button>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
